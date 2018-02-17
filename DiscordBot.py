@@ -229,6 +229,6 @@ def getCoords(address):
 
 
 token = os.environ['BOT_TOKEN']
-client.login(token)
-#client.run(token)
+client.run(token)
+client.close()
 
