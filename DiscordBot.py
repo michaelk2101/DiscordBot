@@ -198,13 +198,13 @@ def game(UserChoice):
 
 def getJokes():
     global jokes
-    with open("jokes.txt.txt", 'r') as f:
+    with open("jokes.txt", 'r') as f:
         jokes = list(f.readlines())
 
 
 def pickupParse():
     global pickupLines
-    with open("pickup.txt.txt", 'r') as f:
+    with open("pickup.txt", 'r') as f:
         pickupLines = list(f.readlines())
 
 
