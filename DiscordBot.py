@@ -2,6 +2,7 @@ import discord
 import random
 import datetime
 import requests
+import os
 
 counter = 0
 client = discord.Client()
@@ -227,5 +228,5 @@ def getCoords(address):
     return [resp_json_payload['results'][0]['geometry']['location'], resp_json_payload['results'][0]['formatted_address']]
 
 
-
-client.run("NDE0MDEzMzQxMDQwOTAyMTQ0.DWhM3Q.tSdseYdKBdbqA7tOkLRK4MCUIOA")
+token = os.environ['BOT_TOKEN']
+client.run(token)
