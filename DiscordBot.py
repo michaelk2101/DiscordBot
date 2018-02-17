@@ -229,4 +229,3 @@ def getCoords(address):
 
 
 client.run("NDE0MDEzMzQxMDQwOTAyMTQ0.DWhM3Q.tSdseYdKBdbqA7tOkLRK4MCUIOA")
-client.run(BOT_TOKEN)
