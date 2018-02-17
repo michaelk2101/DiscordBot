@@ -1,1 +1,1 @@
-worker:python DisordBot.py
+worker: python DisordBot.py
