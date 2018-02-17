@@ -227,10 +227,10 @@ def getCoords(address):
     print(resp_json_payload['results'][0]['geometry']['location'])
     return [resp_json_payload['results'][0]['geometry']['location'], resp_json_payload['results'][0]['formatted_address']]
 
-print(os.environ.get(["User"]))
-token = os.environ.get(['BOT_TOKEN'])
-username = os.environ.get(['User'])
-password = os.environ.get(['Pass'])
+print(os.environ.get("User"))
+token = os.environ.get('BOT_TOKEN')
+username = os.environ.get('User')
+password = os.environ.get('Pass')
 client.login(username, password)
 client.run(token)
 client.close()
