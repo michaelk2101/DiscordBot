@@ -228,7 +228,10 @@ def getCoords(address):
     return [resp_json_payload['results'][0]['geometry']['location'], resp_json_payload['results'][0]['formatted_address']]
 
 
-token = os.environ['BOT_TOKEN']
+token = os.environ.get(['BOT_TOKEN'])
+username = os.environ.get(['User'])
+password = os.environ.get(['Pass'])
+client.login(username, password)
 client.run(token)
 client.close()
 
