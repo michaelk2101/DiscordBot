@@ -123,7 +123,7 @@ async def on_message(message):
         else:
             await client.send_message(message.channel, 'Sorry. It is actually {}.'.format(answer))
 
-    if message.content.startswith("!SPR"):
+    if message.content.startswith("!SPR") or message.content.startswith("!spr"):
         userChoice = message.content.split(" ")[1]
         result = game(userChoice)
         msg = "I chose {} you choose {}\n{}".format(result[1], userChoice, result[0])
