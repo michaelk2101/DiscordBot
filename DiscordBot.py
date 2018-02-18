@@ -10,6 +10,7 @@ congrats = ['Congrats', 'congrats', 'Congratulations', 'congratulations', 'Congr
 channelToId = {'general': '409164584008548354', 'botIdea': '414063833217237002', 'botControl': '409193276885958659', 'tts': '414011036505604096'}
 jokes = []
 pickupLines = []
+googleToken = os.environ.get('googleToken')
 
 
 helpMenu = """-----HELP-----
@@ -221,13 +222,12 @@ def saveIdeas(message):
 
 def getCoords(address):
     address = address.replace(' ', '+')
-    response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address={}'.format(address), headers={"Key": "AIzaSyDSDzf7Haov89VXJXquoRg3g08FQ_a0RTI"})
+    response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address={}'.format(address), headers={"Key": googleToken})
     resp_json_payload = response.json()
     print(address)
     print(resp_json_payload['results'][0]['geometry']['location'])
     return [resp_json_payload['results'][0]['geometry']['location'], resp_json_payload['results'][0]['formatted_address']]
 
-print(os.environ.get("User"))
 token = os.environ.get('BOT_TOKEN')
 username = os.environ.get('User')
 password = os.environ.get('Pass')
