@@ -1,2 +1,2 @@
 worker: python DiscordBot.py
-web gunicorn manage:webResponse.py
+web: gunicorn app:app
