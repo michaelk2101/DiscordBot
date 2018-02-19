@@ -216,7 +216,7 @@ def saveIdeas(message):
         print('--Saving Idea--')
         now = datetime.datetime.now()
         with open("ideas.txt", 'w') as f:
-            print("{} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y")))
+            print("{} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.content))
             f.write("{} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.content))
         print('--Done Saving--')
 
