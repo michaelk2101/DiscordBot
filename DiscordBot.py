@@ -13,7 +13,6 @@ pickupLines = []
 googleToken = os.environ.get('googleToken')
 
 
-
 helpMenu = """-----HELP-----
 !SPR   - Scissors Paper Rock -- Usage: !SPR choice
 !guess - guess a number between 1 and 10 
@@ -30,16 +29,16 @@ helpMenu = """-----HELP-----
 async def on_ready():
     # await client.edit_profile(username=os.environ.get('BotUsername'))
     await client.change_status(game=discord.Game(name=os.environ.get('game')))
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print("--------")
+    logger('Logged in as')
+    logger(client.user.name)
+    logger(client.user.id)
+    logger("--------")
 
 
 @client.event
 async def on_member_join(member):
     await client.send_message(client.get_channel(channelToId['general']), "Welcome bitch!")
-    print(member)
+    logger(member)
     
 
 @client.event
@@ -49,7 +48,7 @@ async def on_message(message):
     saveIdeas(message)
 
     now = datetime.datetime.now()
-    print("{} -- {} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.channel, message.content))
+    logger("{} -- {} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.channel, message.content))
     if message.author == client.user:
         return
 
@@ -133,7 +132,7 @@ async def on_message(message):
         await client.send_message(message.channel, msg)
 
     if message.content.startswith("!coords"):
-        address = message.content.replace("!coords",'')
+        address = message.content.replace("!coords", '')
         coords = getCoords(address)
         await client.send_message(message.channel, "{}\nLat:{} - Long:{}".format(coords[1], coords[0]['lat'], coords[0]['lng']))
 
@@ -180,9 +179,6 @@ async def on_message(message):
         await client.send_message(message.channel, "{}\n{}".format(resp['message'], resp['subtitle']))
 
 
-
-
-
 def game(UserChoice):
     options = ["scissors", "paper", "rock"]
     choice = options[random.randint(0, 2)]
@@ -214,23 +210,30 @@ def pickupParse():
 
 
 def saveIdeas(message):
-    print(message.channel)
+    logger(message.channel)
     if message.channel == client.get_channel(channelToId['botIdea']):
-        print('--Saving Idea--')
+        logger('--Saving Idea--')
         now = datetime.datetime.now()
         with open("ideas.txt", 'w') as f:
-            print("{} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.content))
+            logger("{} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.content))
             f.write("{} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.content))
-        print('--Done Saving--')
+        logger('--Done Saving--')
 
 
 def getCoords(address):
     address = address.replace(' ', '+')
     response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address={}'.format(address), headers={"Key": googleToken})
     resp_json_payload = response.json()
-    print(address)
-    print(resp_json_payload['results'][0]['geometry']['location'])
+    logger(address)
+    logger(resp_json_payload['results'][0]['geometry']['location'])
     return [resp_json_payload['results'][0]['geometry']['location'], resp_json_payload['results'][0]['formatted_address']]
+
+
+def logger(msg):
+    print(msg)
+    with open('log.txt', 'w') as f:
+        f.write(msg+'\n')
+
 
 token = os.environ.get('BOT_TOKEN')
 username = os.environ.get('User')
@@ -238,4 +241,3 @@ password = os.environ.get('Pass')
 client.login(username, password)
 client.run(token)
 client.close()
-
