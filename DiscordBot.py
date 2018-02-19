@@ -45,7 +45,7 @@ async def on_member_join(member):
 async def on_message(message):
     global counter
     counter += 1
-    saveIdeas(message.content)
+    saveIdeas(message)
 
     now = datetime.datetime.now()
     logger("{} -- {} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.channel, message.content))
@@ -210,7 +210,6 @@ def pickupParse():
 
 
 def saveIdeas(message):
-    logger(message.channel)
     if message.channel == client.get_channel(channelToId['botIdea']):
         logger('--Saving Idea--')
         now = datetime.datetime.now()
