@@ -12,7 +12,7 @@ jokes = []
 pickupLines = []
 googleToken = os.environ.get('googleToken')
 
-client.edit_profile(username=os.environ.get('BotUsername'))
+
 
 helpMenu = """-----HELP-----
 !SPR   - Scissors Paper Rock -- Usage: !SPR choice
@@ -28,6 +28,8 @@ helpMenu = """-----HELP-----
 
 @client.event
 async def on_ready():
+    client.edit_profile(username=os.environ.get('BotUsername'))
+    client.change_status(game=os.environ.get('game'))
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
