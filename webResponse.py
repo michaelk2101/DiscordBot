@@ -9,7 +9,7 @@ def startup():
     with open('ideas.txt', 'r') as f:
         data = list(f.readlines())
     for item in data:
-        msg += '{}\n'.format(item)
+        msg += '{}<br>'.format(item)
     return msg, 200
 
 if __name__ == '__main__':
