@@ -12,6 +12,7 @@ jokes = []
 pickupLines = []
 googleToken = os.environ.get('googleToken')
 
+client.edit_profile(username="BotyBot")
 
 helpMenu = """-----HELP-----
 !SPR   - Scissors Paper Rock -- Usage: !SPR choice
