@@ -45,7 +45,7 @@ async def on_member_join(member):
 async def on_message(message):
     global counter
     counter += 1
-    saveIdeas(message)
+    saveIdeas(message.content)
 
     now = datetime.datetime.now()
     logger("{} -- {} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.channel, message.content))
@@ -232,7 +232,7 @@ def getCoords(address):
 def logger(msg):
     print(msg)
     with open('log.txt', 'w') as f:
-        f.write(msg+'\n')
+        f.write('{}\n'.format(msg))
 
 
 token = os.environ.get('BOT_TOKEN')
