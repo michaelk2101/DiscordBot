@@ -218,6 +218,8 @@ def saveIdeas(message):
         with open("ideas.txt", 'w') as f:
             f.write("{} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.content))
         print('--Done Saving--')
+        with open("ideas.txt", 'w') as f:
+            print(f.readlines())
 
 
 def getCoords(address):
