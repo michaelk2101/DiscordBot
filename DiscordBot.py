@@ -48,7 +48,7 @@ async def on_message(message):
     saveIdeas(message)
 
     now = datetime.datetime.now()
-    logger("{} -- {} : {}".formatmess(message.author, message.channel, message.content))
+    logger("{} -- {} : {}".format(message.author, message.channel, message.content))
     if message.author == client.user:
         return
 
