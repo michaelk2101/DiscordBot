@@ -48,7 +48,7 @@ async def on_message(message):
     saveIdeas(message)
 
     now = datetime.datetime.now()
-    logger("{} -- {} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.channel, message.content))
+    logger("{} -- {} : {}".formatmess(message.author, message.channel, message.content))
     if message.author == client.user:
         return
 
@@ -214,7 +214,7 @@ def saveIdeas(message):
         logger('--Saving Idea--')
         now = datetime.datetime.now()
         with open("ideas.txt", 'w') as f:
-            logger("{} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.content))
+            logger("{} : {}".format(message.author, message.content))
             f.write("{} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.content))
         logger('--Done Saving--')
 
@@ -229,7 +229,9 @@ def getCoords(address):
 
 
 def logger(msg):
-    print(msg)
+    now = datetime.datetime.now()
+    time = "{}".format(now.strftime("%H:%M : %d-%m-%Y"))
+    print("{} -- {}".format(time, msg))
     with open('log.txt', 'w') as f:
         f.write('{}\n'.format(msg))
 
