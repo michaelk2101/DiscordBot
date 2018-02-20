@@ -38,8 +38,7 @@ helpMenu = """-----HELP-----
 
 @client.event
 async def on_ready():
-    # await client.edit_profile(username=os.environ.get('BotUsername'))
-    await client.change_status(game=discord.Game(name=os.environ.get('game')))
+    await client.change_presence(game=discord.Game(name=os.environ.get('game')))
     logger('Logged in as')
     logger(client.user.name)
     logger(client.user.id)
