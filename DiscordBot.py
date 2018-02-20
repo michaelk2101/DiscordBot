@@ -244,7 +244,7 @@ def logger(msg):
     time = "{}".format(now.strftime("%H:%M : %d-%m-%Y"))
     print("{} -- {}".format(time, msg))
     try:
-        cur.execute("INSERT INTO log (log_time, log_desc) VALUES (NOW(),{});".format(msg))
+        cur.execute("INSERT INTO log (log_time, log_desc) VALUES (NOW(),'{}');".format(msg))
         conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
