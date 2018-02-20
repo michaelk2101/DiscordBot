@@ -3,6 +3,15 @@ import random
 import datetime
 import requests
 import os
+import psycopg2
+from urllib import parse
+
+# Connecting to postgres DATABASE
+parse.uses_netloc.append("postgres")
+url = parse.urlparse(os.environ["DATABASE_URL"])
+
+conn = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host=url.hostname, port=url.port)
+cur = conn.cursor()
 
 counter = 0
 client = discord.Client()
@@ -23,6 +32,8 @@ helpMenu = """-----HELP-----
 !insult    - insult someone
 -----END-----
 """
+
+
 
 
 @client.event
@@ -232,8 +243,12 @@ def logger(msg):
     now = datetime.datetime.now()
     time = "{}".format(now.strftime("%H:%M : %d-%m-%Y"))
     print("{} -- {}".format(time, msg))
-    with open('log.txt', 'w') as f:
-        f.write('{}\n'.format(msg))
+    try:
+        cur.execute("INSERT INTO log (log_time, log_desc) VALUES (NOW(),{});".format(msg))
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
 
 
 token = os.environ.get('BOT_TOKEN')
