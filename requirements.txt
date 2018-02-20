@@ -1,5 +1,5 @@
-Flask==0.12.2
 discord.py==0.16.12
+Flask==0.12.2
 requests==2.18.1
+psycopg2==2.7.4
 discord==0.0.2
-gunicorn==19.7.1
