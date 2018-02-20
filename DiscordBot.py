@@ -73,10 +73,10 @@ async def on_message(message):
             await client.send_message(message.channel, ':tada:')
             return
 
-    if 'gucci' in message.content or 'Gucci' in message.content:
+    if 'gucci' in message.content.lower():
         await client.send_message(message.channel, 'Kill Your Self :rage:')
 
-    if 'haha' in message.content or 'Haha' in message.content or 'HAHA' in message.content or 'HaHa' in message.content:
+    if 'haha' in message.content.lower():
         await client.send_message(message.channel, ':joy:')
 
     if 'bot' in message.content:
