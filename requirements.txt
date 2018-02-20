@@ -3,3 +3,4 @@ Flask==0.12.2
 requests==2.18.1
 psycopg2==2.7.4
 discord==0.0.2
+psycopg2-binary
