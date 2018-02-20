@@ -223,10 +223,11 @@ def pickupParse():
 def saveIdeas(message):
     if message.channel == client.get_channel(channelToId['botIdea']):
         logger('--Saving Idea--')
-        now = datetime.datetime.now()
-        with open("ideas.txt", 'w') as f:
-            logger("{} : {}".format(message.author, message.content))
-            f.write("{} -- {} : {}".format(now.strftime("%H:%M : %d-%m-%Y"), message.author, message.content))
+        logger("{} : {}".format(message.author, message.content))
+        try:
+            cur.execute("INSERT INTO ideas (idea_user, idea_desc) VALUES ('{}', '{}');".format(message.author, message.content))
+        except (Exception, psycopg2.DatabaseError) as error:
+            print(error)
         logger('--Done Saving--')
 
 
