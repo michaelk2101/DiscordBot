@@ -79,12 +79,12 @@ async def on_message(message):
     if 'haha' in message.content.lower():
         await client.send_message(message.channel, ':joy:')
 
-    if 'bot' in message.content:
+    if 'bot' in message.content.lower():
         typeOfMessage = random.randint(0, 1)
         if typeOfMessage:
             await client.send_message(message.channel, 'Someone say bot!')
             resp = await client.wait_for_message(timeout=5)
-            if 'no' in resp.content or 'No' in resp.content:
+            if 'no' in resp.content.lower():
                 await client.send_message(message.channel, "Fk You!")
         else:
             await client.send_message(message.channel, "What!")
