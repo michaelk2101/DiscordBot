@@ -84,8 +84,9 @@ async def on_message(message):
         if typeOfMessage:
             await client.send_message(message.channel, 'Someone say bot!')
             resp = await client.wait_for_message(timeout=5)
-            if 'no' in resp.content.lower():
-                await client.send_message(message.channel, "Fk You!")
+            if resp is not None:
+                if 'no' in resp.content.lower():
+                    await client.send_message(message.channel, "Fk You!")
         else:
             await client.send_message(message.channel, "What!")
 
