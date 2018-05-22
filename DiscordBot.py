@@ -23,13 +23,15 @@ googleToken = os.environ.get('googleToken')
 
 
 helpMenu = """-----HELP-----
-!SPR   - Scissors Paper Rock -- Usage: !SPR choice
-!guess - guess a number between 1 and 10 
-!ping  - pong
-!joke  - these are offensive you have been warned
-!flirt - flirt with a bot - you lonely bastard 
-!coords- get coordinates of an address
-!insult    - insult someone
+!SPR        - Scissors Paper Rock -- Usage: !SPR choice
+!guess      - Guess a number between 1 and 10 
+!flip       - Flip a coin
+!ping       - Pong
+!joke       - These are offensive you have been warned
+!flirt      - Flirt with a bot - you lonely bastard 
+!coords     - Get coordinates of an address
+!insult     - Insult someone
+!request    - Request a feature -- Usage: !request "Feature"
 -----END-----
 """
 
@@ -94,6 +96,14 @@ async def on_message(message):
 
     if message.content.startswith("!help"):
         await client.send_message(message.channel, helpMenu)
+
+    if message.content.startswith("!flip"):
+        choice = random.randint(0, 1)
+        if choice:
+            output = "Heads!"
+        else:
+            output = "Tails!"
+        await client.send_message(message.channel, output)
 
     if message.content.startswith('!ping'):
         await client.send_message(message.channel, 'pong')
