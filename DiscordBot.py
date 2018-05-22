@@ -237,9 +237,9 @@ def pickupParse():
 
 def saveIdeas(message):
         logger('--Saving Idea--')
-        logger("{} : {}".format(message.author, message.content))
+        logger("{} : {}".format(message.author, message.content.strip("!request")))
         try:
-            cur.execute("INSERT INTO ideas (idea_user, idea_desc) VALUES ('{}', '{}');".format(message.author, message.content))
+            cur.execute("INSERT INTO ideas (idea_user, idea_desc) VALUES ('{}:{}', '{}');".format(message.server, message.author, message.content.strip("!request")))
         except (Exception, psycopg2.DatabaseError) as error:
             logger(error)
         logger('--Done Saving--')
@@ -252,7 +252,7 @@ def saveIdeas(message):
             s.starttls()
             s.login(my_address, password)
             logger('Signed Into email')
-            message = "{}:{}\n{}".format(message, message.author, message.content)
+            message = "{}:{}\n{}".format(message.server, message.author, message.content.strip("!request"))
             msg = MIMEMultipart()
             msg['From'] = my_address
             msg['To'] = sendTo
