@@ -5,6 +5,9 @@ import requests
 import os
 import psycopg2
 from urllib import parse
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 # Connecting to postgres DATABASE
 parse.uses_netloc.append("postgres")
@@ -58,7 +61,8 @@ async def on_member_join(member):
 async def on_message(message):
     global counter
     counter += 1
-    saveIdeas(message)
+    if message.content.startswith("!request"):
+        saveIdeas(message)
 
     now = datetime.datetime.now()
     logger("{} -- {} : {}".format(message.author, message.channel, message.content))
@@ -232,14 +236,33 @@ def pickupParse():
 
 
 def saveIdeas(message):
-    if message.channel == client.get_channel(channelToId['botIdea']):
         logger('--Saving Idea--')
         logger("{} : {}".format(message.author, message.content))
         try:
             cur.execute("INSERT INTO ideas (idea_user, idea_desc) VALUES ('{}', '{}');".format(message.author, message.content))
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
+            logger(error)
         logger('--Done Saving--')
+        try:
+            logger('Sending Ideas Email')
+            my_address = os.environ.get("email")
+            password = os.environ.get("password")
+            sendTo = os.environ.get("sendTo")
+            s = smtplib.SMTP(host='smtp.gmail.com', port=587)
+            s.starttls()
+            s.login(my_address, password)
+            logger('Signed Into email')
+            message = "{}:{}\n{}".format(message, message.author, message.content)
+            msg = MIMEMultipart()
+            msg['From'] = my_address
+            msg['To'] = sendTo
+            msg['Subject'] = "Discord Idea"
+            msg.attach(MIMEText(message, 'plain'))
+            s.send_message(msg)
+            s.quit()
+            logger("Sent Ideas Email")
+        except Exception as e:
+            logger(e)
 
 
 def getCoords(address):
@@ -260,7 +283,6 @@ def logger(msg):
         conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
-
 
 
 token = os.environ.get('BOT_TOKEN')
