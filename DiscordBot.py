@@ -62,7 +62,11 @@ async def on_message(message):
     global counter
     counter += 1
     if message.content.startswith("!request"):
-        saveIdeas(message)
+        received = saveIdeas(message)
+        if received:
+            await client.send_message(message.channel, "Feature Request Received!")
+        else:
+            await client.send_message(message.channel, "Fuck Something went wrong!")
 
     now = datetime.datetime.now()
     logger("{} -- {} : {}".format(message.author, message.channel, message.content))
@@ -261,6 +265,7 @@ def saveIdeas(message):
             s.send_message(msg)
             s.quit()
             logger("Sent Ideas Email")
+            return True
         except Exception as e:
             logger(e)
 
