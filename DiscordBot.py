@@ -213,7 +213,7 @@ async def on_message(message):
         word = message.content.split("!urban ")[1].replace(" ", "%20")
         url = "http://api.urbandictionary.com/v0/define"
         response = requests.get(url, params=[("term", word)]).json()
-        if len(response["list"] == 0):
+        if len(response["list"]) == 0:
             await client.send_message(message.channel, "Could not find word!")
         else:
             tags = "Related Tags:\n" + ', '.join(response["tags"])
