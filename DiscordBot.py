@@ -35,6 +35,7 @@ helpMenu = """-----HELP-----
 !coords     - Get coordinates of an address
 !insult     - Insult someone
 !request    - Request a feature -- Usage: !request "Feature"
+!urban      - Queries Urban dictionary -- Usage: !urban "word"
 -----END-----
 """
 
@@ -207,6 +208,17 @@ async def on_message(message):
 
         resp = requests.get("http://www.foaas.com{}".format(choice), headers={"Accept": "application/json"}).json()
         await client.send_message(message.channel, "{}\n{}".format(resp['message'], resp['subtitle']))
+
+    if message.content.startswith("!ubran"):
+        word = message.content.split("!urban ")[1]
+        url = "http://api.urbandictionary.com/v0/define"
+        response = requests.get(url, params=["term", word]).json()
+        if len(response["list"] == 0):
+            await client.send_message(message.channel, "Could not find word!")
+        else:
+            tags = "Related Tags:\n" + ', '.join(response["tags"])
+            output = """Word:{}\nTop Definition:{}\nExample:{}\Related Tags:\n{}""".format(word, response["list"][0]["definition"], response["list"][0]["example"], tags)
+            await client.send_message(message.channel, output)
 
 
 def game(UserChoice):
