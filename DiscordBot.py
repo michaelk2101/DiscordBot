@@ -209,7 +209,7 @@ async def on_message(message):
         resp = requests.get("http://www.foaas.com{}".format(choice), headers={"Accept": "application/json"}).json()
         await client.send_message(message.channel, "{}\n{}".format(resp['message'], resp['subtitle']))
 
-    if message.content.startswith("!ubran"):
+    if message.content.startswith("!urban"):
         word = message.content.split("!urban ")[1]
         url = "http://api.urbandictionary.com/v0/define"
         response = requests.get(url, params=["term", word]).json()
