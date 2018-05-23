@@ -211,6 +211,7 @@ async def on_message(message):
 
     if message.content.startswith("!urban"):
         word = message.content.split("!urban ")[1].replace(" ", "%20")
+        print(word)
         url = "http://api.urbandictionary.com/v0/define"
         response = requests.get(url, params=[("term", word)]).json()
         if len(response["list"]) == 0:
