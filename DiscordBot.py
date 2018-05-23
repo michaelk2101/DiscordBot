@@ -217,7 +217,7 @@ async def on_message(message):
             await client.send_message(message.channel, "Could not find word!")
         else:
             tags = "Related Tags:\n" + ', '.join(response["tags"])
-            output = """Word:{}\nTop Definition:{}\nExample:{}\Related Tags:\n{}""".format(word, response["list"][0]["definition"], response["list"][0]["example"], tags)
+            output = """Word:\n{}\nTop Definition:\n{}\nExample:\n{}Related Tags:\n{}""".format(word, response["list"][0]["definition"], response["list"][0]["example"], tags)
             await client.send_message(message.channel, output)
 
 
