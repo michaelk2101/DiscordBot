@@ -210,9 +210,9 @@ async def on_message(message):
         await client.send_message(message.channel, "{}\n{}".format(resp['message'], resp['subtitle']))
 
     if message.content.startswith("!urban"):
-        word = message.content.split("!urban ")[1]
+        word = message.content.split("!urban ")[1].replace(" ", "%20")
         url = "http://api.urbandictionary.com/v0/define"
-        response = requests.get(url, params=["term", word]).json()
+        response = requests.get(url, params=[("term", word)]).json()
         if len(response["list"] == 0):
             await client.send_message(message.channel, "Could not find word!")
         else:
