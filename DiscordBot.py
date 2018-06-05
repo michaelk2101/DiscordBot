@@ -19,7 +19,6 @@ cur = conn.cursor()
 counter = 0
 client = discord.Client()
 congrats = ['Congrats', 'congrats', 'Congratulations', 'congratulations', 'Congratulation', 'congratulation']
-channelToId = {'general': '409164584008548354', 'botIdea': '414063833217237002', 'botControl': '409193276885958659', 'tts': '414011036505604096'}
 jokes = []
 pickupLines = []
 googleToken = os.environ.get('googleToken')
@@ -54,8 +53,12 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
+    """
+    server = member.server
+    server.channels
     await client.send_message(client.get_channel(channelToId['general']), "Welcome bitch!")
     logger(member)
+    """
     
 
 @client.event
